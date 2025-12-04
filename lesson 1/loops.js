@@ -76,3 +76,50 @@ return max;
 console.log("the max num is", max_number());   
 
 //7
+
+function printText10Times() {
+    let text = prompt("הenter the text to print 10 times:");
+    let i = 0;
+
+    while (i < 10) {
+        console.log(text);
+        i++;
+    }
+}
+
+
+printText10Times();
+
+
+function printHelloXTimes() {
+    let x = parseInt(prompt("the num to print Hello?"));
+    let i = 0;
+
+    while (i < x) {
+        console.log("Hello");
+        i++;
+    }
+}
+
+
+printHelloXTimes();
+
+function averageGrades() {
+    let x = parseInt(prompt("כמthe num of grades to average:"));
+    let sum = 0;
+    let count = 0;
+
+    while (count < x) {
+        let grade = parseFloat(prompt(` the mark is ;"":`,count + 1));
+        sum += grade;
+        count++;
+    }
+
+    let average = sum / x;
+    console.log("the average is " + average);
+}
+
+
+averageGrades();
+
+
