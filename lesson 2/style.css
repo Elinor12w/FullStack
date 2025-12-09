@@ -1,0 +1,21 @@
+body{
+    font-family: Arial, sans-serif;
+    transition: background-color 0.5s ease;
+    margin: 20px;
+}
+button.color_btn{
+    margin: 5px;
+    padding: 10px 15px;
+    border: 2px solid #1a1616  ;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+button[data_color="green"]{  background-color: rgb(27, 213, 27);}
+button[data_color="black"]{background-color:rgb(0, 0, 0);}
+button[data_color="red"]{background-color:rgb(204, 17, 17);}
+button[data_color="blue"]{background-color:rgba(40, 13, 244, 0.822);}
+
+
