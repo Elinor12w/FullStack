@@ -1,3 +1,5 @@
+
+//elinor's dom exercises
 console.log("Hello, World!");   
 
 //1
