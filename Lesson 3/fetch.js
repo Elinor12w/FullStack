@@ -103,7 +103,7 @@ close_btn.addEventListener("click", function () {
 
 //4
 
-console.log("im working???")
+console.log("im working???");
 
 const pagination_button = document.querySelector(".pagination");
 const cat_contianer = document.querySelector(".cat_contianer");
@@ -125,10 +125,10 @@ async function load_cats(page) {
     img.src = cat.url;
     img.style.width = "200px";
     img.style.height = "200px";
-   
+
     cat_contianer.appendChild(img);
   });
-  console.log(cats)
+  console.log(cats);
 }
 
 for (let i = 0; i < 10; i++) {
@@ -138,7 +138,46 @@ for (let i = 0; i < 10; i++) {
     load_cats(i);
   });
   pagination_button.appendChild(btn);
-
 }
 
 load_cats(0);
+//5
+
+const select_btn = document.querySelector(".breed_select");
+const cats_container = document.querySelector(".cats_container");
+
+async function load_breeds() {
+  const response_2 = await fetch("https://api.thecatapi.com/v1/breeds");
+  const breeds = await response_2.json();
+  console.log(breeds);
+
+  breeds.forEach(function (breed) {
+    const option = document.createElement("option");
+    option.value = breed.id;
+    option.innerHTML = breed.name;
+
+    select_btn.appendChild(option);
+  });
+}
+
+async function load_cats_by_breed(breed_id) {
+  const response_3 = await fetch(
+    "https://api.thecatapi.com/v1/images/search?breed_ids=" + breed_id
+  );
+  const data = await response_3.json();
+  cat_contianer.innerHTML = "";
+  const img = document.createElement("img");
+  img.src = data[0].url;
+
+  img.style.width = "300px";
+  img.style.height = "300px";
+
+  cat_contianer.appendChild(img);
+}
+
+select_btn.addEventListener("change", function () {
+  load_cats_by_breed(select_btn.value);
+  
+});
+
+load_breeds();
