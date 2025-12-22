@@ -1,12 +1,11 @@
 const load_button = document.querySelector(".load_user");
 const user_container = document.querySelector(".user_card_container");
 
-load_button.addEventListener("click", function () {
-  fetch("https://randomuser.me/api/")
-    .then((response) => response.json())
-    .then((data) => {
-      const user = data.results[0];
-      console.log(Object.keys(user)); //checking what i have in user info
+load_button.addEventListener("click", async function () {
+  const response = await fetch("https://randomuser.me/api/");
+  const data = await response.json();
+  const user = data.results[0];
+  console.log(Object.keys(user)); //checking what i have in user info
 
       user_container.innerHTML = "";
 
@@ -25,7 +24,7 @@ load_button.addEventListener("click", function () {
       user_container.appendChild(email);
       user_container.appendChild(cuntry);
     });
-});
+
 
 //1
 
@@ -58,10 +57,10 @@ const popup = document.querySelector(".popup");
 const popup_details = document.querySelector(".popup_details");
 const close_btn = document.querySelector(".close_btn");
 
-Load_button.addEventListener("click", function () {
-  fetch("https://randomuser.me/api/?results=5")
-    .then((response) => response.json())
-    .then((data) => {
+Load_button.addEventListener("click",  async function () {
+  const response = await fetch("https://randomuser.me/api/?results=5");
+    const data = await response.json();
+  
       users_container.innerHTML = "";
 
       data.results.forEach((user) => {
@@ -95,7 +94,7 @@ Load_button.addEventListener("click", function () {
         users_container.appendChild(card);
       });
     });
-});
+
 
 close_btn.addEventListener("click", function () {
   popup.classList.add("hidden");
@@ -177,7 +176,7 @@ async function load_cats_by_breed(breed_id) {
 
 select_btn.addEventListener("change", function () {
   load_cats_by_breed(select_btn.value);
-  
+
 });
 
 load_breeds();
