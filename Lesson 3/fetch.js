@@ -5,6 +5,7 @@ load_button.addEventListener("click", async function () {
   const response = await fetch("https://randomuser.me/api/");
   const data = await response.json();
   const user = data.results[0];
+  
   console.log(Object.keys(user)); //checking what i have in user info
 
       user_container.innerHTML = "";
