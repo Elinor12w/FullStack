@@ -1,0 +1,77 @@
+.rounded-input {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+/* ProductCard layout tweaks */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.product-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.qty-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.product-info {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.product-info .price {
+  margin-top: 6px;
+  color: #333;
+}
+ .product-filter{
+  display: flex;
+  flex-direction: column;
+  gap:12px
+ }
+ .sort-section{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+ }
+  .price-slider{
+   display: flex;
+  flex-direction: column;  
+  align-items: flex-end;   
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .product-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-slider {
+    justify-content: center;
+    width: 100%;
+  }
+}
