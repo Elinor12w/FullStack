@@ -1,0 +1,109 @@
+[
+  {
+    "id": 1,
+    "task": "Buy groceries",
+    "completed": false,
+    "priority": "high"
+  },
+  {
+    "id": 2,
+    "task": "Finish project documentation",
+    "completed": true,
+    "priority": "high"
+  },
+  {
+    "id": 3,
+    "task": "Call the dentist",
+    "completed": false,
+    "priority": "medium"
+  },
+  {
+    "id": 6,
+    "task": "Read 20 pages of my book",
+    "completed": false,
+    "priority": "low"
+  },
+  {
+    "id": 7,
+    "task": "Prepare meal for tomorrow",
+    "completed": false,
+    "priority": "medium"
+  },
+  {
+    "id": 8,
+    "task": "Clean the kitchen",
+    "completed": false,
+    "priority": "high"
+  },
+  {
+    "id": 9,
+    "task": "Check and reply to emails",
+    "completed": true,
+    "priority": "medium"
+  },
+  {
+    "id": 10,
+    "task": "Plan weekend trip",
+    "completed": false,
+    "priority": "low"
+  },
+  {
+    "id": 218675,
+    "task": "dkljahsgfc",
+    "completed": false,
+    "priority": "extreme"
+  },
+  {
+    "id": 218675,
+    "task": "dkljahsgfc",
+    "completed": false,
+    "priority": "extreme"
+  },
+  {
+    "id": 1,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 1,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 12,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 13,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 14,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 15,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 16,
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 17,
+    "task": "Water the plants",
+    "priority": "low",
+    "completed": false
+  },
+  {
+    "id": 18,
+    "task": "Water the plants",
+    "priority": "low",
+    "completed": false
+  }
+]
