@@ -2,10 +2,18 @@ import { useContext } from "react";
 import { ShopContext } from "../ShopContext";
 import { useNavigate } from "react-router";
 import { styled } from "@mui/material/styles";
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import IconButton from "@mui/material/IconButton";
 import Badge, { badgeClasses } from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCartOutlined";
+
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -49,7 +57,7 @@ export const ProductCard = (props) => {
           <ShoppingCartIcon fontSize="medium" />
           <CartBadge badgeContent={amount} color="primary" overlap="circular" />
         </IconButton> */}
-        
+
         <IconButton aria-label="cart">
           <StyledBadge badgeContent={amount} color="primary">
             <ShoppingCartIcon />
@@ -68,7 +76,36 @@ export const ProductCard = (props) => {
       <div className="product-info">
         <h5>{props.itemName}</h5>
         <h6 className="price">${props.price}</h6>
+
+
+        
+  {/* export default function SimpleBottomNavigation()
+   {
+        const [value, setValue] = React.useState(0);
+
+        return (
+          <Box sx={{ width: 500 }}>
+            <BottomNavigation
+              showLabels
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            >
+              <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+              <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+              <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+            </BottomNavigation>
+          </Box>
+        );
+      } */}
+
       </div>
     </div>
+
+          
+
+
+
   );
-};
+}

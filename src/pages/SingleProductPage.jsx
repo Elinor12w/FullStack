@@ -1,6 +1,13 @@
 import { useContext } from "react";
 import { Link, useParams } from "react-router";
 import { ShopContext } from "../ShopContext";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
 
 export const SingleProductPage = () => {
   const { productId } = useParams();
@@ -20,7 +27,9 @@ export const SingleProductPage = () => {
           }
           return (
             <div className={"productPageDetails"}>
-              <p>{item[0]}:</p> <b>{item[1]}</b>
+              <p>{item[0]}:</p>
+               <b>{item[1]}</b>
+              
             </div>
           );
         }

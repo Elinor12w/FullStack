@@ -4,7 +4,7 @@ import { PriceSlider } from "./priceSlider";
 export const NavSection = () => {
   return (
     <nav className="product-filter">
-      <h1>Jackets</h1>
+      <h1 style={{ color: "black", fontSize: "40px" }}>Jackets</h1>
 
       <div className="filter-controls">
         

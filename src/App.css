@@ -48,21 +48,27 @@
   margin-top: 6px;
   color: #333;
 }
- .product-filter{
+
+/* Nav / filter layout */
+.product-filter {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 20;
+}
+
+.filter-controls {
   display: flex;
   flex-direction: column;
-  gap:12px
- }
- .sort-section{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
- }
-  .price-slider{
-   display: flex;
-  flex-direction: column;  
-  align-items: flex-end;   
-  gap: 20px;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.price-control,
+.sort-control {
+  /* Individual control styling */
 }
 
 @media (max-width: 600px) {
@@ -70,8 +76,9 @@
     flex-direction: column;
     align-items: stretch;
   }
-  .filter-slider {
+  .filter-controls {
     justify-content: center;
     width: 100%;
+    align-items: center;
   }
 }
