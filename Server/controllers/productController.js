@@ -45,3 +45,15 @@ export const resetProductsController = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+export const deleteProductController = async (req, res) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: "Invalid product ID format" });
+    }
+    await productService.deleteProduct(req.params.id);
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};

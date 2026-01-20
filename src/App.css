@@ -68,6 +68,7 @@
 
 .price-control,
 .sort-control {
+  display: flex;
   /* Individual control styling */
 }
 
