@@ -1,4 +1,6 @@
 import * as userService from "../services/userService.js";
+
+
 export const getAllUsersController = async(req, res)=>{
     try{
         const users=await userService.getAllUsers();
@@ -48,6 +50,25 @@ export const deleteAllUsersController = async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 };
 
+
+export const registerController = async (req, res) => {
+  try {
+    const user = await userService.registerUser(req.body);
+    res.status(201).json({ message: "User registered successfully", user });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const changePasswordController = async (req, res) => {
+  try {
+    const { id, oldPassword, newPassword } = req.body;
+    await userService.updatePassword(id, oldPassword, newPassword);
+    res.json({ message: "Password updated successfully" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 // קונטרולרים עתידיים
 export const loginController = (req, res) => res.status(501).json({ message: "Not implemented yet" });
-export const changePasswordController = (req, res) => res.status(501).json({ message: "Not implemented yet" });

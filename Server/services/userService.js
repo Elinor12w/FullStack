@@ -1,4 +1,36 @@
 import {User} from "../models/userModel.js";
+import bcrypt from"bcryptjs";
+
+const hashPassword= async(password)=>{
+    const salt =await bcrypt.genSalt(10);
+    return await bcrypt.hash(password,salt);
+}
+export const registerUser =async(userData)=>{
+    const hashedPassword = await hashPassword(userData.password);
+    const newUser = new User({  ...userData, password: hashedPassword});
+    return await newUser.save();
+}
+export const loginUser= async(email,password)=>{
+    const user =await User.findOne({email});
+    if (!user)throw new Error("user not found");
+
+    const isMatch =await bcrypt.compare(password,user.password);
+    if (!isMatch) throw new Error ("invalid credentials");
+    return user;
+}
+export const updatePassword = async (id, oldPassword, newPassword) => {
+  const user = await User.findById(id);
+  if (!user) throw new Error("User not found");
+
+  // בדיקה בטחונית: האם הוא יודע את הסיסמה הישנה?
+  const isMatch = bcrypt.compareSync(oldPassword, user.password);
+  if (!isMatch) throw new Error("Old password incorrect");
+
+  user.password = await hashPassword(newPassword);
+  return await user.save();
+};
+
+
 
 export const getAllUsers = ()=> User.find({});
 export const getUserById = (id) => User.findById(id);
