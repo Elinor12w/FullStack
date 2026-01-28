@@ -1,3 +1,4 @@
+import { ConstructionOutlined } from "@mui/icons-material";
 import * as productService from "../services/productService.js";
 import fs from "fs";
 import mongoose from "mongoose";
@@ -38,8 +39,11 @@ export const resetProductsController = async (req, res) => {
   try {
     await productService.clearAllProducts();
     
-    const data = JSON.parse(fs.readFileSync("./Server/Products.json", "utf-8"));
+    const data = JSON.parse(fs.readFileSync("./Server/product.json", "utf-8"));
+    console.log(data);
+    
     const products = await productService.insertManyProducts(data);
+    console.log(products);
     res.json({ message: "Database reset successful!", count: products.length });
   } catch (err) {
     res.status(500).json({ message: err.message });

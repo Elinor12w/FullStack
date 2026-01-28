@@ -13,14 +13,18 @@ export const Router = () => {
 
   useEffect(() => {
     const handleProducts = async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
+      try {
+        const response = await fetch("http://localhost:3000/products");
+        const data = await response.json();
 
-      const mappedData = data.map((product) => {
-        return { ...product, amount: 0 };
-      });
-      setProducts(mappedData);
-      setFilteredProducts(mappedData);
+        const mappedData = data.map((product) => {
+          return { ...product, id: product._id, amount: 0 };
+        });
+        setProducts(mappedData);
+        setFilteredProducts(mappedData);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
     };
 
     handleProducts();

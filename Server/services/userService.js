@@ -1,5 +1,6 @@
 import {User} from "../models/userModel.js";
 import bcrypt from"bcryptjs";
+import jwt from "jsonwebtoken";
 
 const hashPassword= async(password)=>{
     const salt =await bcrypt.genSalt(10);
@@ -10,14 +11,24 @@ export const registerUser =async(userData)=>{
     const newUser = new User({  ...userData, password: hashedPassword});
     return await newUser.save();
 }
+
 export const loginUser= async(email,password)=>{
-    const user =await User.findOne({email});
-    if (!user)throw new Error("user not found");
+    const user = await User.findOne({email});
+    if (!user) throw new Error("User not found");
 
     const isMatch =await bcrypt.compare(password,user.password);
     if (!isMatch) throw new Error ("invalid credentials");
-    return user;
-}
+
+    const token=jwt.sign(
+       { id: user._id, email:user.email, role:user.role },
+       
+        process.env.JWT_SECRET,{ expiresIn:"1h"}
+  );
+
+    return { user, token };
+};
+
+
 export const updatePassword = async (id, oldPassword, newPassword) => {
   const user = await User.findById(id);
   if (!user) throw new Error("User not found");
@@ -40,5 +51,3 @@ export const updateUser= (id ,data)=> User.findByIdAndUpdate(id, data, {new:true
 export const deleteUser = (id)=>User.findByIdAndDelete(id);
 export const deleteAllUsers = () => User.deleteMany({});
 
-
-//export const loginUser= 

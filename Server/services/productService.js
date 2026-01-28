@@ -12,4 +12,4 @@ export const createProduct = (data) => new Product(data).save();
 export const updateProduct = (id, data) => Product.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 export const deleteProduct = (id) => Product.findByIdAndDelete(id);
 export const clearAllProducts = () => Product.deleteMany({});
-export const insertManyProducts = (data) => Product.insertMany(data);
+export const insertManyProducts =async  (data) => await Product.insertMany(data);

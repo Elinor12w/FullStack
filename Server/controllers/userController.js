@@ -71,4 +71,17 @@ export const changePasswordController = async (req, res) => {
 };
 
 // קונטרולרים עתידיים
-export const loginController = (req, res) => res.status(501).json({ message: "Not implemented yet" });
+export const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+    
+    const result = await userService.loginUser(email, password);
+    res.json({ message: "Login successful", ...result });
+  } catch (err) {
+    res.status(401).json({ message: err.message });
+  }
+};
