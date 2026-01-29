@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ShopContext } from "../ShopContext";
+import { ShopContext } from "../ShopContext.jsx";
 import { FilterSortComp } from "./FilterSortComp";
 
 export const SortSection = () => {

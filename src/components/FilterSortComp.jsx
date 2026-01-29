@@ -6,7 +6,7 @@ export const FilterSortComp = (props) => {
       <label>{label}</label>
       <select onChange={(event) => onSelect(event.target.value)}>
         {listOfOptions.map((opt) => (
-          <option value={opt}>{opt}</option>
+          <option key={opt} value={opt}>{opt}</option>
         ))}
       </select>
     </div>

@@ -16,11 +16,11 @@ export const SingleProductPage = () => {
   console.log(productId, products);
 
   const p = products.find((p) => p.id === +productId);
-  console.log(p.id, productId);
+  console.log(p._id, productId);
   return (
     <>
       <Link to={"/"}>HOMEPAGE</Link>
-      {Object.entries(products?.find((p) => p.id === +productId)).map(
+      {Object.entries(products?.find((p) => p._id === +productId)).map(
         (item) => {
           if (typeof item[1] === "object") {
             return <></>;

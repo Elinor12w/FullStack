@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { ProductCard } from "./ProductCard";
-import { ShopContext } from "../ShopContext.js";
+import { ShopContext } from "../ShopContext.jsx";
 
 export const ProductsSection = () => {
-  const { products } = useContext(ShopContext);
+  const { filteredProducts } = useContext(ShopContext);
   return (
     <section className="products">
-      {products.map((product) => (
+      {filteredProducts && filteredProducts.map((product) => (
         <ProductCard
-          key={product.id}
-          id={product.id}
+          key={product._id || product.id}
+          id={product._id || product.id}
           itemName={product.title}
           price={product.price}
           img={product.image}

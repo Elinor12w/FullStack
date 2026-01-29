@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "http://localhost:5174"],
   credentials: true
 }));
 const PORT = process.env.PORT || 3000;
@@ -38,7 +38,7 @@ app.post("/api/login", userCtrl.loginController);
 const startServer = async () => {
   try {
     
-    await connectDB(process.env.MONGO_URI);
+    await connectDB();
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   } catch (err) {
     console.error("❌ Failed to start server:", err);

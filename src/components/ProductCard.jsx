@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ShopContext } from "../ShopContext";
+import { ShopContext } from "../ShopContext.jsx";
 import { useNavigate } from "react-router";
 import { styled } from "@mui/material/styles";
 import Box from '@mui/material/Box';
@@ -35,7 +35,7 @@ export const ProductCard = (props) => {
   const navigate = useNavigate();
 
   // Find the item in cart to get its amount
-  const cartItem = cart.find((item) => item.id === props.id);
+  const cartItem = cart.find((item) => item._id === props.id);
   const amount = cartItem ? cartItem.amount : 0;
 
   const handleNavigateToProductPage = () => {
@@ -75,30 +75,7 @@ export const ProductCard = (props) => {
 
       <div className="product-info">
         <h5>{props.itemName}</h5>
-        <h6 className="price">${props.price}</h6>
-
-
-        
-  {/* export default function SimpleBottomNavigation()
-   {
-        const [value, setValue] = React.useState(0);
-
-        return (
-          <Box sx={{ width: 500 }}>
-            <BottomNavigation
-              showLabels
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            >
-              <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-              <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-              <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
-            </BottomNavigation>
-          </Box>
-        );
-      } */}
+        <h6 className="price">${props.price}</h6>     
 
       </div>
     </div>
