@@ -1,135 +1,85 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import { useContext } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import Badge from '@mui/material/Badge';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import { ShopContext } from '../ShopContext';
 
-const drawerWidth = 240;
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}));
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-    /**
-     * This is necessary to enable the selection of content. In the DOM, the stacking order is determined
-     * by the order of appearance. Following this rule, elements appearing later in the markup will overlay
-     * those that appear earlier. Since the Drawer comes after the Main content, this adjustment ensures
-     * proper interaction with the underlying content.
-     */
-    position: 'relative',
-    variants: [
-      {
-        props: ({ open }) => open,
-        style: {
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-          marginRight: 0,
-        },
-      },
-    ],
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginRight: drawerWidth,
-      },
-    },
-  ],
-}));
+const drawerWidth = 320;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  
   ...theme.mixins.toolbar,
   justifyContent: 'flex-start',
 }));
 
+const CartItem = styled(Card)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  display: 'flex',
+  borderRadius: '8px',
+  overflow: 'hidden',
+}));
+
+const CartItemImage = styled(CardMedia)({
+  width: '100px',
+  height: '100px',
+  flexShrink: 0,
+});
+
+const CartItemContent = styled(CardContent)({
+  flex: 1,
+  padding: '12px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+});
+
+const QuantityControl = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  '& button': {
+    minWidth: '32px',
+    height: '32px',
+    padding: 0,
+  },
+}));
+
+const CartFooter = styled(Box)(({ theme }) => ({
+  position: 'sticky',
+  bottom: 0,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(2),
+  borderTop: `1px solid ${theme.palette.divider}`,
+}));
 
 export default function PersistentDrawerRight({ open, setOpen }) {
   const theme = useTheme();
-
-
-  const handleDrawerOpen = () => {
-    setOpen(true); 
-  };
+  const { cart, addToCart, removeFromCart } = useContext(ShopContext);
 
   const handleDrawerClose = () => {
     setOpen(false); 
   };
 
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.amount), 0);
 
   return (
-    <Box sx={{ display: 'flex', width: '10vh', height: '10vh' }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
-  <Toolbar>
-    <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-      My Awesome Store
-    </Typography>
-   
-    <IconButton
-      color="inherit"
-      aria-label="open cart"
-      edge="end"
-      onClick={handleDrawerOpen}
-      sx={[open && { display: 'none' }]}
-    >
-      <StyledBadge badgeContent={4} color="primary">
-        <ShoppingCartIcon />
-      </StyledBadge>
-    </IconButton>
-  </Toolbar>
-</AppBar>
     
       <Drawer
         sx={{
@@ -139,41 +89,97 @@ export default function PersistentDrawerRight({ open, setOpen }) {
             width: drawerWidth,
           },
         }}
-        variant="persistent"
+        variant="temporary"
         anchor="right"
         open={open}
       >
         <DrawerHeader>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            סל קניות
+          </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        
+        <Box sx={{ 
+          flex: 1, 
+          overflowY: 'auto', 
+          padding: 2,
+          paddingBottom: 16
+        }}>
+          {cart.length === 0 ? (
+            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 4 }}>
+              הסל ריק
+            </Typography>
+          ) : (
+            cart.map((item) => (
+              <CartItem key={item._id}>
+                <CartItemImage
+                  component="img"
+                  image={item.image}
+                  alt={item.title}
+                />
+                <CartItemContent>
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }} noWrap>
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body2" color="primary">
+                      ₪{(item.price * item.amount).toFixed(2)}
+                    </Typography>
+                  </Box>
+                  
+                  <QuantityControl>
+                    <IconButton
+                      size="small"
+                      onClick={() => removeFromCart(item._id)}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    <Typography variant="body2" sx={{ minWidth: '30px', textAlign: 'center' }}>
+                      {item.amount}
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      onClick={() => addToCart(item._id)}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </QuantityControl>
+                </CartItemContent>
+              </CartItem>
+            ))
+          )}
+        </Box>
+
+        <CartFooter>
+          <Box sx={{ mb: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+              <Typography variant="body2">סה״כ פריטים:</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                {cart.reduce((sum, item) => sum + item.amount, 0)}
+              </Typography>
+            </Box>
+            <Divider sx={{ my: 1 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography variant="h6">סה״כ:</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                ₪{totalPrice.toFixed(2)}
+              </Typography>
+            </Box>
+          </Box>
+          
+          <Button 
+            variant="contained" 
+            color="primary" 
+            fullWidth
+            disabled={cart.length === 0}
+          >
+            לקנייה
+          </Button>
+        </CartFooter>
       </Drawer>
     </Box>
   );

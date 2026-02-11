@@ -9,6 +9,7 @@ export const ShopProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState("All Items");
   const [priceRange, setPriceRange] = useState([0, 10000]);
   const [cart, setCart] = useState([]);
+  const [sortBy, setSortBy] = useState("Featured");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,8 +49,32 @@ export const ShopProvider = ({ children }) => {
     // Apply price filter
     result = result.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
 
+    // Apply sorting
+    switch(sortBy) {
+      case "Alphabetically, A-Z":
+        result = [...result].sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "Alphabetically, Z-A":
+        result = [...result].sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case "Price, low to high":
+        result = [...result].sort((a, b) => a.price - b.price);
+        break;
+      case "Price, high to low":
+        result = [...result].sort((a, b) => b.price - a.price);
+        break;
+      case "Best Selling":
+        // Assuming there's a sales property, otherwise keep original order
+        result = [...result].sort((a, b) => (b.sales || 0) - (a.sales || 0));
+        break;
+      case "Featured":
+      default:
+        // Keep original order from server
+        break;
+    }
+
     setFilteredProducts(result);
-  }, [selectedCategory, priceRange, products]);
+  }, [selectedCategory, priceRange, products, sortBy]);
 
   const handleCatChange = (category) => {
     setSelectedCategory(category);
@@ -57,6 +82,10 @@ export const ShopProvider = ({ children }) => {
 
   const handlePriceChange = (newRange) => {
     setPriceRange(newRange);
+  };
+
+  const handleSort = (sortOption) => {
+    setSortBy(sortOption);
   };
 
   const addToCart = (productId) => {
@@ -102,9 +131,12 @@ export const ShopProvider = ({ children }) => {
     priceRange,
     cart,
     setCart,
+    setProducts,
     loading,
+    sortBy,
     handleCatChange,
     handlePriceChange,
+    handleSort,
     setFilteredProducts,
     addToCart,
     removeFromCart,
