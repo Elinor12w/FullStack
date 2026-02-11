@@ -12,7 +12,7 @@ function App() {
   return (
     <ShopProvider>
       <PersistentDrawerRight open={open} setOpen={setOpen} />
-      <NavSection />
+      <NavSection open={open} setOpen={setOpen} />
       <ProductsSection />
     </ShopProvider>
   );
