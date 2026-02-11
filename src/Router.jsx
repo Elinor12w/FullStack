@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App";
 import { SingleProductPage } from "./pages/SingleProductPage";
+import AdminPage from "./pages/AdminPage";
 import { useEffect, useState } from "react";
 import { ShopContext } from "./ShopContext";
 
@@ -101,6 +102,10 @@ export const Router = () => {
       path: "/products/:productId",
       Component: SingleProductPage,
     },
+    {
+      path: "/admin",
+      Component: AdminPage,
+    },
   ]);
 
   return (
@@ -108,10 +113,12 @@ export const Router = () => {
       value={{
         products: filteredProducts,
         AllProducts: products,
+        setProducts,
         setFilteredProducts,
         categories,
         handleCatChange,
         cart,
+        setCart,
         addToCart,
         removeFromCart,
       }}
