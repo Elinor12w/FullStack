@@ -3,17 +3,15 @@ import { ShopContext } from "../ShopContext.jsx";
 import { FilterSortComp } from "./FilterSortComp";
 
 export const SortSection = () => {
-  const { categories, handleCatChange } = useContext(ShopContext);
+  const { categories, handleCatChange, handleSort } = useContext(ShopContext);
 
   const sortOptions = [
-    "Featured",
-    "Best Selling",
+   
     "Alphabetically, A-Z",
     "Alphabetically, Z-A",
     "Price, low to high",
     "Price, high to low",
-    "Date, new to old",
-    "Date, old to new",
+    "Best Selling",
   ];
 
   return (
@@ -24,7 +22,7 @@ export const SortSection = () => {
         listOfOptions={categories}
       />
       <FilterSortComp
-        onSelect={() => console.log("not working yet")}
+        onSelect={handleSort}
         label={"Sort by:"}
         listOfOptions={sortOptions}
       />
