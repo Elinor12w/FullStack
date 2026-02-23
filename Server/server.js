@@ -22,6 +22,7 @@ app.get("/api/products/:id",getProductByIdController );
 app.put("/api/products/:id", updateProductController);  // דורש התחברות
 app.post("/api/reset-products", resetProductsController);  // רק admin
 app.delete("/api/products/:id",  deleteProductController);
+
 // ניתיבי משתמשים
 app.get("/api/users",  userCtrl.getAllUsersController);  // דורש התחברות
 app.get("/api/users/:id", userCtrl.getUserByIdController);
@@ -34,7 +35,7 @@ app.delete("/api/users/:id",  userCtrl.deleteUserController);
 // אימות
 app.post("/api/register", userCtrl.registerController);
 app.post("/api/login", userCtrl.loginController);
-
+ 
 const startServer = async () => {
   try {
     

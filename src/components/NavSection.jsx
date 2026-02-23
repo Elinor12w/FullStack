@@ -23,13 +23,14 @@ export const NavSection = ({ open, setOpen }) => {
   const { cart } = useContext(ShopContext);
 
   const handleDrawerOpen = () => {
+
     setOpen(true);
   };
 
   return (
     <nav className="product-filter">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-        <h1 style={{ color: "black", fontSize: "40px" }}>Jackets</h1>
+        <h1 style={{ color: "#1461dccc", fontSize: "40px" }}>My amazing store</h1>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <Tooltip title="Admin Panel">
             <Link to="/admin">

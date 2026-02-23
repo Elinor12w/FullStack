@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App";
-import { SingleProductPage } from "./pages/SingleProductPage";
+import SingleProductPage  from "./pages/SingleProductPage.jsx";
 import AdminPage from "./pages/AdminPage";
 import { useEffect, useState } from "react";
 import { ShopContext } from "./ShopContext";
@@ -10,6 +10,8 @@ export const Router = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState([]);
+
+  
   
 
   useEffect(() => {
@@ -92,6 +94,7 @@ export const Router = () => {
       }
     }
   };
+
 
   const router = createBrowserRouter([
     {

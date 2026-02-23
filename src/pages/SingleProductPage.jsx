@@ -1,39 +1,82 @@
-import { useContext } from "react";
-import { Link, useParams } from "react-router";
-import { ShopContext } from "../ShopContext";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardActions from "@mui/material/CardActions";
+import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export const SingleProductPage = () => {
+ const SingleProductPage = () => {
   const { productId } = useParams();
-  const { products } = useContext(ShopContext);
+  const [product, setProduct] = useState(null);
 
-  console.log(productId, products);
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/products/${productId}`)
+      .then(res => res.json())
+      .then(data => setProduct(data))
+      .catch(err => console.error(err));
+  }, [productId]);
 
-  const p = products.find((p) => p.id === +productId);
-  console.log(p._id, productId);
-  return (
-    <>
-      <Link to={"/"}>HOMEPAGE</Link>
-      {Object.entries(products?.find((p) => p._id === +productId)).map(
-        (item) => {
-          if (typeof item[1] === "object") {
-            return <></>;
-          }
-          return (
-            <div className={"productPageDetails"}>
-              <p>{item[0]}:</p>
-               <b>{item[1]}</b>
-              
-            </div>
-          );
-        }
-      )}
-    </>
+  if (!product) return <p style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>Loading...</p>;
+
+   return (
+    <div style={styles.page}>
+      <div style={styles.card}>
+        <img
+          src={product.image}
+          alt={product.name}
+          style={styles.image}
+        />
+
+        <h1 style={styles.title}>{product.name}</h1>
+
+        <h2 style={styles.price}>{product.price} ₪</h2>
+
+        <p style={styles.description}>{product.description}</p>
+
+        <Link to="/" style={styles.backBtn}>
+          ⬅ Back to Home
+        </Link>
+      </div>
+    </div>
   );
 };
+  const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f4f6f8",
+  },
+  card: {
+    width: "400px",
+    backgroundColor: "#ffffff",
+    padding: "10px",
+    borderRadius: "12px",
+    boxShadow: "0 8px 20px #7c9eca",
+    textAlign: "center",
+  },
+  image: {
+    width: "50%",
+    height: "250px",
+    objectFit: "",
+    borderRadius: "10px",
+    marginBottom: "20px",
+  },
+  title: {
+    marginBottom: "10px",
+  },
+  price: {
+    color: "#176fe3",
+    marginBottom: "15px",
+  },
+  description: {
+    marginBottom: "20px",
+    color: "#1c1b1b",
+  },
+  backBtn: {
+    textDecoration: "none",
+    padding: "10px 20px",
+    backgroundColor: "#176fe3cd",
+    color: "#fff",
+    borderRadius: "8px",
+    display: "inline-block",
+  },
+};
+export default SingleProductPage;
