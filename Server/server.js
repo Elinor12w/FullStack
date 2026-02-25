@@ -47,7 +47,7 @@ app.post("/api/register", userCtrl.registerController);
 app.post("/api/login", userCtrl.loginController);
 
 // fallback - שלח את index.html עבור כל נתיב שלא הוא API (לתמיכה ב-React Router)
-app.get("*", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
  
