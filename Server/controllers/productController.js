@@ -22,6 +22,15 @@ export const getProductByIdController = async (req, res) => {
   }
 };
 
+export const createProductController = async (req, res) => {
+  try {
+    const product = await productService.createProduct(req.body);
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(400).json({ message: "Validation error: " + err.message });
+  }
+};
+
 export const updateProductController = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
