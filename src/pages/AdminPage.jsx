@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Table,
   TableBody,
@@ -147,7 +148,14 @@ const AdminPage = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>דף הניהול</h1>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <h1>דף הניהול</h1>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined" color="secondary">
+              Home page
+            </Button>
+          </Link>
+        </Box>
         <Button
           variant="contained"
           color="primary"
