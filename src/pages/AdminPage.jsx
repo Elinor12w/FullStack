@@ -22,7 +22,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { ShopContext } from '../ShopContext';
 
 const AdminPage = () => {
-  const { products, setProducts } = useContext(ShopContext);
+  const { AllProducts = [], setProducts, setFilteredProducts } = useContext(ShopContext);
+  const products = AllProducts;
   const [openDialog, setOpenDialog] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
@@ -84,7 +85,8 @@ const AdminPage = () => {
 
       if (!response.ok) throw new Error('Failed to add product');
       const newProduct = await response.json();
-      setProducts([...products, newProduct]);
+      setProducts((prev) => [...prev, newProduct]);
+      setFilteredProducts((prev) => [...prev, newProduct]);
       handleCloseDialog();
     } catch (error) {
       console.error('Error adding product:', error);
@@ -94,7 +96,8 @@ const AdminPage = () => {
 
   const handleUpdateProduct = async () => {
     try {
-      const response = await fetch(`/api/products/${editingProduct._id}`, {
+      const editingId = editingProduct?._id || editingProduct?.id;
+      const response = await fetch(`/api/products/${editingId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +110,8 @@ const AdminPage = () => {
 
       if (!response.ok) throw new Error('Failed to update product');
       const updatedProduct = await response.json();
-      setProducts(products.map(p => p._id === editingProduct._id ? updatedProduct : p));
+      setProducts((prev) => prev.map((p) => (p._id === editingId || p.id === editingId ? updatedProduct : p)));
+      setFilteredProducts((prev) => prev.map((p) => (p._id === editingId || p.id === editingId ? updatedProduct : p)));
       handleCloseDialog();
     } catch (error) {
       console.error('Error updating product:', error);
@@ -124,7 +128,8 @@ const AdminPage = () => {
       });
 
       if (!response.ok) throw new Error('Failed to delete product');
-      setProducts(products.filter(p => p._id !== productId));
+      setProducts((prev) => prev.filter((p) => p._id !== productId && p.id !== productId));
+      setFilteredProducts((prev) => prev.filter((p) => p._id !== productId && p.id !== productId));
     } catch (error) {
       console.error('Error deleting product:', error);
       alert('Failed to delete product');
@@ -166,7 +171,7 @@ const AdminPage = () => {
           </TableHead>
           <TableBody>
             {products.map((product) => (
-              <TableRow key={product._id}>
+              <TableRow key={product._id || product.id}>
                 <TableCell>{product.title}</TableCell>
                 <TableCell>{product.description?.substring(0, 50)}...</TableCell>
                 <TableCell align="right">₪{product.price}</TableCell>
@@ -182,7 +187,7 @@ const AdminPage = () => {
                   <IconButton
                     size="small"
                     color="error"
-                    onClick={() => handleDeleteProduct(product._id)}
+                    onClick={() => handleDeleteProduct(product._id || product.id)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -250,3 +255,4 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
+
