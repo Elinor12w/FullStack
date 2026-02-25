@@ -71,7 +71,7 @@ const AdminPage = () => {
 
   const handleAddProduct = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/products', {
+      const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const AdminPage = () => {
 
   const handleUpdateProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${editingProduct._id}`, {
+      const response = await fetch(`/api/products/${editingProduct._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const AdminPage = () => {
     if (!window.confirm('אתה בטוח שברצונך למחוק את המוצר?')) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
+      const response = await fetch(`/api/products/${productId}`, {
         method: 'DELETE',
       });
 

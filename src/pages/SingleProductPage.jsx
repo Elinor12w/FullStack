@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/products/${productId}`)
+    fetch(`/api/products/${productId}`)
       .then(res => res.json())
       .then(data => setProduct(data))
       .catch(err => console.error(err));
