@@ -151,7 +151,7 @@ const AdminPage = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <h1>דף הניהול</h1>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <Button variant="outlined" color="secondary">
+            <Button variant="outlined" color="primary">
               Home page
             </Button>
           </Link>
